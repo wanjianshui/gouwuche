@@ -1,0 +1,69 @@
+<!--
+ * @Author: error: git config user.name && git config user.email & please set dead value or install git
+ * @Date: 2022-10-03 10:41:17
+ * @LastEditors: 王建水-ss 11877704+wang-jianshui-ss@user.noreply.gitee.com
+ * @LastEditTime: 2022-11-29 17:29:17
+ * @FilePath: \JavaScipt\10.3 DOM\10.3购物车全选案例.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="checkbox" id="all">全选/全不选
+    <hr>
+    <ul class="shop">
+        <li>
+            <input type="checkbox" >商品1
+        </li>
+        <li>
+            <input type="checkbox">商品2
+        </li>
+        <li>
+            <input type="checkbox">商品3
+        </li>
+        <li>
+            <input type="checkbox">商品4
+        </li>
+    </ul>
+    <script>
+
+       var oAAl = document.querySelector("#all")  // 获取元素节点，querySelector("#") 
+       var oitems = document.querySelectorAll(".shop input")  // 获取元素节点，querySelectorAll获取shop的全部input节点
+    //    绑定事件
+       oAAl.onclick = function(){
+        // alls.checked)表示全选/不全选框的勾选状态 勾选中状态下为ture，未勾选状态下为false
+        console.log(oAAl.checked)
+        // 要求判断商品里面勾选框全部都勾选上的话，则（全选/全不选）框自动勾选上，如果有一个商品列表勾选框没有勾选上，则不勾选（全选/全不选）
+        // 核心算法：for循环每个商品列表的勾选框，勾选一个自身长度+1，满足勾选长度条件ture则全选框勾选上 都在flse不勾选 
+        for(var i=0;i<oitems.length;i++){
+            // 把循环获取到的input每一项都等于全选/不全选框的状态(即全选/不全选框状态为ture则商品框也为ture)
+            oitems[i].checked = oAAl.checked
+        }
+       }
+    //    每点击一次oitems就for循环一次oitems.length，
+       for(var i=0;i<oitems.length;i++){
+        oitems[i].onclick = handler
+       }
+        // 封装一个判断商品勾选框选中状态下的索引值函数
+       function handler(){
+        var count = 0
+        for(var i=0;i<oitems.length;i++){
+            if(oitems[i].checked) count++
+        }
+        if(count===oitems.length){
+            oAAl.checked = true
+        }else{
+            oAAl.checked = false
+        }
+       }
+
+
+    </script>
+</body>
+</html>
